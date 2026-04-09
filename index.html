@@ -1,312 +1,175 @@
-Here is the complete, single-file production code for **NEXUS PRO**. This version maximizes the "futuristic" aesthetic with a high-performance **Glassmorphism** UI, dynamic SVG backgrounds, and a modular architecture that combines all your requested features: Global Survival Tracking, GST/VAT processing, Tax Optimization, and an AI Market Sentiment Engine.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS PRO | AI Financial Intelligence</title>
-    
+    <title>NEXUS PRO | Income & Survival Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 
-                        display: ['Orbitron', 'sans-serif'], 
-                        body: ['Rajdhani', 'sans-serif'] 
-                    },
-                    colors: {
-                        neonCyan: '#00f2ff',
-                        neonViolet: '#7000ff',
-                        cyberDark: '#05070a'
-                    }
-                }
-            }
-        }
-    </script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        body {
-            background-color: #05070a;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(112, 0, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 242, 255, 0.1) 0px, transparent 50%);
-            color: #e2e8f0;
-            min-h-screen;
-        }
-
-        .glass-panel {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-        }
-
-        .neo-input {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(112, 0, 255, 0.3);
-            border-radius: 12px;
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .neo-input:focus {
-            outline: none;
-            border-color: #00f2ff;
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-            background: rgba(0, 242, 255, 0.05);
-        }
-
-        .glow-button {
-            background: linear-gradient(90deg, #7000ff, #00f2ff);
-            background-size: 200% auto;
-            transition: 0.5s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-
-        .glow-button:hover {
-            background-position: right center;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .scanline {
-            width: 100%;
-            height: 2px;
-            background: rgba(0, 242, 255, 0.1);
-            position: absolute;
-            animation: scan 4s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        .data-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #94a3b8;
-        }
+        :root { --accent: #00f2ff; --bg: #030712; }
+        body { background: radial-gradient(circle at 0% 0%, #111827, var(--bg)); color: #f3f4f6; font-family: 'Rajdhani', sans-serif; min-h-screen; }
+        .glass-panel { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(30px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
+        .neo-input { background: rgba(0,0,0,0.4); border: 1px solid #374151; color: white; transition: 0.3s; border-radius: 12px; }
+        .neo-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); outline: none; }
+        .glow-text { text-shadow: 0 0 10px rgba(0, 242, 255, 0.4); }
+        .btn-sync { background: linear-gradient(90deg, #4f46e5, #06b6d4); transition: 0.4s; font-family: 'Orbitron', sans-serif; }
+        .btn-sync:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
     </style>
 </head>
-<body class="font-body overflow-x-hidden p-4 md:p-8">
+<body class="p-4 md:p-12">
 
-    <div class="scanline"></div>
-
-    <header class="max-w-7xl mx-auto mb-12 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-        <div class="flex items-center gap-4">
-            <div class="w-14 h-14 glass-panel flex items-center justify-center border-neonCyan/50">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" stroke-width="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
+    <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+        <div class="flex items-center gap-5">
+            <div class="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center">
+                <div class="w-8 h-8 bg-cyan-500 rounded-full animate-pulse blur-[2px]"></div>
             </div>
             <div>
-                <h1 class="font-display text-3xl font-bold tracking-tighter text-white">NEXUS<span class="text-neonCyan">PRO</span></h1>
-                <p class="data-label text-neonCyan/70">Autonomous Financial Hub</p>
+                <h1 class="text-3xl font-display font-bold tracking-widest glow-text uppercase">Nexus<span class="text-cyan-400">Core</span></h1>
+                <p class="text-[10px] tracking-[0.4em] text-gray-500 font-bold uppercase">Income Intelligence Array</p>
             </div>
         </div>
 
-        <div class="flex items-center gap-4 glass-panel px-6 py-2 border-white/5">
-            <span class="data-label">Network Locale:</span>
-            <select id="country" onchange="syncGlobal()" class="bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer">
-                <option value="IN" class="bg-cyberDark">INDIA (INR)</option>
-                <option value="US" class="bg-cyberDark">USA (USD)</option>
-                <option value="UK" class="bg-cyberDark">UK (GBP)</option>
-                <option value="AE" class="bg-cyberDark">UAE (AED)</option>
-                <option value="EU" class="bg-cyberDark">EUROPE (EUR)</option>
+        <div class="glass-panel px-6 py-3 flex items-center gap-4">
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Global Node:</span>
+            <select id="region" onchange="processSystem()" class="bg-transparent font-bold text-cyan-400 focus:outline-none cursor-pointer">
+                <option value="IN" class="bg-slate-950">INDIA (INR)</option>
+                <option value="US" class="bg-slate-950">USA (USD)</option>
+                <option value="UK" class="bg-slate-950">UK (GBP)</option>
+                <option value="AE" class="bg-slate-950">UAE (AED)</option>
             </select>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-4 gap-8 relative z-10">
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
         
-        <aside class="xl:col-span-1 space-y-6">
-            <div class="glass-panel p-6 border-l-4 border-neonViolet">
-                <h2 class="font-display text-xs text-white mb-8 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-neonViolet rounded-full animate-ping"></span>
-                    CORE PARAMETERS
-                </h2>
-                
+        <section class="lg:col-span-1 space-y-6">
+            <div class="glass-panel p-8 border-t-2 border-cyan-500/50">
+                <h2 class="text-xs font-display mb-8 text-gray-400 tracking-widest">COMMAND INPUTS</h2>
                 <div class="space-y-6">
-                    <div class="relative">
-                        <label class="data-label block mb-2">Annual Revenue</label>
-                        <span class="currSym absolute left-3 bottom-3 text-neonCyan font-bold">₹</span>
-                        <input type="number" id="income" class="neo-input w-full pl-8 pr-4 py-3 text-lg font-bold" placeholder="0.00">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase">Annual Gross Income</label>
+                        <input type="number" id="income" class="neo-input w-full p-4 mt-2 font-bold text-xl" placeholder="0.00">
                     </div>
-                    <div class="relative">
-                        <label class="data-label block mb-2">Liquid Capital</label>
-                        <span class="currSym absolute left-3 bottom-3 text-neonCyan font-bold">₹</span>
-                        <input type="number" id="savings" class="neo-input w-full pl-8 pr-4 py-3 text-lg font-bold" placeholder="0.00">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase">Total Liquid Savings</label>
+                        <input type="number" id="savings" class="neo-input w-full p-4 mt-2" placeholder="0.00">
                     </div>
-                    <div class="relative">
-                        <label class="data-label block mb-2">Monthly Operational Cost</label>
-                        <span class="currSym absolute left-3 bottom-3 text-neonCyan font-bold">₹</span>
-                        <input type="number" id="burn" class="neo-input w-full pl-8 pr-4 py-3 text-lg font-bold" placeholder="0.00">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase">Monthly Burn Rate</label>
+                        <input type="number" id="burn" class="neo-input w-full p-4 mt-2" placeholder="0.00">
                     </div>
-
-                    <button onclick="processIntelligence()" class="glow-button w-full text-white py-4 rounded-xl text-xs font-display">
-                        Process Neural Sync
+                    <button onclick="processSystem()" class="btn-sync w-full text-white py-5 rounded-2xl text-[10px] font-bold tracking-widest uppercase">
+                        Initialize Neural Sync
                     </button>
                 </div>
             </div>
+        </section>
 
-            <div class="glass-panel p-6 border-l-4 border-green-500">
-                <h3 class="data-label text-green-400 mb-4">Taxation Utility</h3>
-                <div class="flex gap-2 mb-4">
-                    <input type="number" id="gst_val" class="neo-input w-full px-3 py-2 text-sm" placeholder="Base Amount">
-                    <select id="gst_rate" class="neo-input px-2 py-2 text-xs">
-                        <option value="18">18%</option>
-                        <option value="12">12%</option>
-                        <option value="5">5%</option>
-                    </select>
-                </div>
-                <div id="gst_total" class="text-xs font-bold text-center border-t border-white/5 pt-4 text-green-500">TOTAL SYNC: ---</div>
-            </div>
-        </aside>
-
-        <section class="xl:col-span-3 space-y-8">
-            
+        <section class="lg:col-span-2 space-y-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-panel p-8 group overflow-hidden relative">
-                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-neonCyan/5 rounded-full blur-2xl group-hover:bg-neonCyan/10 transition-all"></div>
-                    <h3 class="data-label mb-2">Survival Capability</h3>
-                    <div class="flex items-baseline gap-3">
-                        <span id="out_survival" class="text-6xl font-display text-white tracking-tighter">--</span>
-                        <span class="text-neonCyan font-bold text-sm tracking-widest uppercase">Months</span>
+                <div class="glass-panel p-8">
+                    <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-3">Survival Runway</h3>
+                    <div class="flex items-baseline gap-2">
+                        <span id="out_runway" class="text-6xl font-display text-white">--</span>
+                        <span class="text-xs font-bold text-cyan-400 uppercase">Months</span>
                     </div>
-                    <p class="text-[10px] text-slate-500 mt-4 font-bold uppercase tracking-widest">Autonomous Runway Limit</p>
+                    <div class="h-1 bg-gray-800 rounded-full mt-6 overflow-hidden">
+                        <div id="bar_runway" class="h-full bg-cyan-400 w-0 transition-all duration-700"></div>
+                    </div>
                 </div>
 
-                <div class="glass-panel p-8 group overflow-hidden relative">
-                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-neonViolet/5 rounded-full blur-2xl group-hover:bg-neonViolet/10 transition-all"></div>
-                    <h3 class="data-label mb-2">Tax Alpha Projection</h3>
-                    <div class="flex items-baseline gap-3">
-                        <span class="currSym text-2xl text-neonViolet font-bold">₹</span>
-                        <span id="out_tax" class="text-6xl font-display text-white tracking-tighter">--</span>
+                <div class="glass-panel p-8">
+                    <h3 class="text-[10px] font-bold text-gray-500 uppercase mb-3">Estimated Income Tax</h3>
+                    <div class="flex items-baseline gap-2">
+                        <span id="out_tax" class="text-6xl font-display text-white">--</span>
                     </div>
-                    <p class="text-[10px] text-slate-500 mt-4 font-bold uppercase tracking-widest">Optimized Annual Savings</p>
+                    <p class="text-[10px] text-indigo-400 font-bold uppercase mt-6 tracking-widest" id="tax_type">Projected Liability</p>
                 </div>
             </div>
 
-            <div class="glass-panel p-8 min-h-[220px] relative">
+            <div class="glass-panel p-8 min-h-[220px]">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="font-display text-sm tracking-widest text-white/50">FINANCIAL ADVISORY LOG</h3>
-                    <span class="text-[10px] font-bold text-neonCyan bg-neonCyan/10 px-3 py-1 rounded-full border border-neonCyan/20 uppercase tracking-tighter">Real-time Feed</span>
+                    <h3 class="text-xs font-display text-cyan-400 tracking-widest">AI ADVISORY TERMINAL</h3>
+                    <span class="text-[10px] text-gray-600 font-bold">MODE: ENHANCED</span>
                 </div>
-                <div id="ai_output" class="text-slate-400 leading-relaxed italic border-l-2 border-white/5 pl-6">
-                    Awaiting initialization sequence... Update Core Parameters to view localized financial strategy and tax-saving vectors.
+                <div id="advisory" class="text-sm text-gray-400 italic leading-relaxed">
+                    Awaiting core parameters... Sync to generate global tax roadmap and asset protection strategy.
                 </div>
             </div>
 
-            <div class="glass-panel p-6 bg-black/40">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="data-label text-white/40 italic">Global Market Sentiment Parser</h3>
-                    <div id="vibe_status" class="text-[10px] font-black uppercase px-4 py-1 rounded bg-slate-800 text-slate-500 border border-white/5 transition-all">Offline</div>
-                </div>
-                <textarea id="market_input" rows="3" class="neo-input w-full p-4 text-xs tracking-wide" placeholder="[SCANNING MODE] PASTE NEWS HEADLINES OR MARKET UPDATES FOR SENTIMENT SCORING..."></textarea>
-                <div class="mt-4 flex justify-between items-center">
-                    <p class="text-[10px] text-slate-600 font-bold uppercase">Heuristic Analysis v4.2</p>
-                    <button onclick="analyzeVibe()" class="text-neonCyan font-display text-[10px] font-bold hover:brightness-150 transition tracking-widest">
-                        Run Pulse Scan ›
-                    </button>
+            <div class="glass-panel p-6 bg-black/40 border border-white/5">
+                <h3 class="text-[10px] font-bold text-gray-600 mb-4 uppercase tracking-[0.2em]">Market Sentiment Analysis</h3>
+                <textarea id="market_text" rows="2" class="neo-input w-full p-4 text-xs" placeholder="[PASTE MARKET NEWS DATA]"></textarea>
+                <div class="flex justify-between items-center mt-4">
+                    <button onclick="analyzeMarkets()" class="text-cyan-400 text-[10px] font-display font-bold hover:glow-text">RUN SCAN ›</button>
+                    <div id="market_vibe" class="text-[10px] font-black px-4 py-1 rounded bg-slate-900 text-slate-500">IDLE</div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="max-w-7xl mx-auto mt-20 text-center pb-12">
-        <p class="text-[10px] font-bold text-slate-700 tracking-[0.8em] uppercase">System Design: NEXUS FULL-STACK // 2026-X86-64</p>
-    </footer>
-
     <script>
-        const REGIONS = {
-            IN: { sym: "₹", advice: "Maximize Section 80C (1.5L) + 80D (25k). Consider NPS for an additional 50k deduction." },
-            US: { sym: "$", advice: "Focus on 401(k) / IRA contributions. Use HSA for triple-tax advantage on health expenses." },
-            UK: { sym: "£", advice: "Leverage ISA allowance (£20k). Higher rate taxpayers should review SIPP contributions." },
-            AE: { sym: "د.إ", advice: "Personal Income Tax is 0%. Focus on corporate tax compliance (if applicable) and offshore diversification." },
-            EU: { sym: "€", advice: "Utilize local tax-deferred pension wrappers. Check cross-border capital gains harvesting rules." }
+        // GLOBAL TAXATION & ADVISORY ASSETS
+        const REGION_LOGIC = {
+            IN: { sym: "₹", avgRate: 0.22, advice: "Utilize Sec 80C (1.5L) & 80D. Consider ELSS for tax-free market gains." },
+            US: { sym: "$", avgRate: 0.24, advice: "Max 401(k) / HSA. Harvest capital losses to offset high income tax." },
+            UK: { sym: "£", avgRate: 0.35, advice: "Leverage ISA allowance (£20k). Check Personal Savings Allowance (PSA)." },
+            AE: { sym: "د.إ", avgRate: 0.00, advice: "Tax-free income environment. Direct tax savings into high-yield ETFs." }
         };
 
-        function syncGlobal() {
-            const country = document.getElementById('country').value;
-            const syms = document.querySelectorAll('.currSym');
-            syms.forEach(s => s.innerText = REGIONS[country].sym);
-            processIntelligence();
-        }
-
-        function processIntelligence() {
+        function processSystem() {
             const income = parseFloat(document.getElementById('income').value) || 0;
             const savings = parseFloat(document.getElementById('savings').value) || 0;
             const burn = parseFloat(document.getElementById('burn').value) || 0;
-            const country = document.getElementById('country').value;
+            const node = document.getElementById('region').value;
+            const config = REGION_LOGIC[node];
 
-            // 1. Survival Runway
-            if (burn > 0) {
-                const months = (savings / burn).toFixed(1);
-                document.getElementById('out_survival').innerText = months;
-            }
+            // 1. Survival Calculation
+            const runway = burn > 0 ? (savings / burn).toFixed(1) : 0;
+            document.getElementById('out_runway').innerText = runway || "--";
+            
+            const bar = document.getElementById('bar_runway');
+            bar.style.width = Math.min((runway / 12) * 100, 100) + "%";
+            bar.className = runway < 6 ? "h-full bg-red-500" : "h-full bg-cyan-400";
 
-            // 2. Tax Projection (Heuristic)
-            const projectedSavings = (income * 0.15).toLocaleString(undefined, {maximumFractionDigits: 0});
-            document.getElementById('out_tax').innerText = income > 0 ? projectedSavings : "--";
+            // 2. Income Tax Simulation (Simplified Progressive Model)
+            let tax = income * config.avgRate;
+            document.getElementById('out_tax').innerText = income > 0 ? (config.sym + tax.toLocaleString(undefined, {maximumFractionDigits: 0})) : "--";
+            document.getElementById('tax_type').innerText = node === 'AE' ? "0% TAX JURISDICTION" : "ESTIMATED ANNUAL LIABILITY";
 
-            // 3. AI Advisory
+            // 3. AI Strategic Advice
             if (income > 0 || savings > 0) {
-                document.getElementById('ai_output').innerHTML = `
-                    <div class="not-italic space-y-4 font-medium text-slate-300">
-                        <p><span class="text-neonCyan font-display text-[10px] mr-2">[LOCALE_SYNC]:</span> ${REGIONS[country].advice}</p>
-                        <p><span class="text-neonViolet font-display text-[10px] mr-2">[CAPITAL_PLAN]:</span> If runway exceeds 12 months, deploy ${REGIONS[country].sym}${(savings * 0.3).toLocaleString()} into diversified market indexes.</p>
-                        <p><span class="text-white font-display text-[10px] mr-2">[ALGORITHM_LOG]:</span> Efficiency rated at 94%. Maintain emergency liquidity at 6x operational cost.</p>
+                const net = income - tax;
+                document.getElementById('advisory').innerHTML = `
+                    <div class="not-italic space-y-4">
+                        <p class="flex items-start gap-3"><span class="text-cyan-400 font-bold">›</span> [NODE SYNC]: Effective Tax Rate estimated at ${(config.avgRate * 100).toFixed(0)}%. ${config.advice}</p>
+                        <p class="flex items-start gap-3"><span class="text-indigo-500 font-bold">›</span> [CAPITAL FLOW]: Post-tax disposable income is ${config.sym}${net.toLocaleString()}.</p>
+                        <p class="flex items-start gap-3"><span class="text-white font-bold">›</span> [ACTION]: ${runway < 6 ? 'Priority 1: Build 6-month buffer.' : 'Runway secure. Deploy 25% surplus to Growth Assets.'}</p>
                     </div>
                 `;
             }
-
-            // 4. GST Calc
-            const base = parseFloat(document.getElementById('gst_val').value) || 0;
-            const rate = parseFloat(document.getElementById('gst_rate').value);
-            const total = base + (base * (rate/100));
-            document.getElementById('gst_total').innerText = `TOTAL SYNC: ${REGIONS[country].sym}${total.toLocaleString()}`;
         }
 
-        function analyzeVibe() {
-            const text = document.getElementById('market_input').value.toLowerCase();
-            const status = document.getElementById('vibe_status');
-            
-            const bullish = ['surge', 'rally', 'bull', 'gain', 'profit', 'high', 'breakout', 'growth'];
-            const bearish = ['dip', 'fall', 'crash', 'bear', 'loss', 'inflation', 'drop', 'sell'];
+        function analyzeMarkets() {
+            const text = document.getElementById('market_text').value.toLowerCase();
+            const vibe = document.getElementById('market_vibe');
+            const bulls = ['surge', 'rally', 'profit', 'high', 'growth'];
+            const bears = ['crash', 'drop', 'inflation', 'loss', 'sell'];
 
-            let score = bullish.filter(w => text.includes(w)).length - bearish.filter(w => text.includes(w)).length;
+            let score = bulls.filter(w => text.includes(w)).length - bears.filter(w => text.includes(w)).length;
 
             if (score > 0) {
-                status.innerText = "BIAS: BULLISH";
-                status.className = "text-[10px] font-black uppercase px-4 py-1 rounded bg-green-500/10 text-green-400 border border-green-500/30";
+                vibe.innerText = "BULLISH BIAS"; vibe.className = "text-[10px] font-black px-4 py-1 rounded bg-green-500/10 text-green-500 border border-green-500/20";
             } else if (score < 0) {
-                status.innerText = "BIAS: BEARISH";
-                status.className = "text-[10px] font-black uppercase px-4 py-1 rounded bg-red-500/10 text-red-400 border border-red-500/30";
+                vibe.innerText = "BEARISH BIAS"; vibe.className = "text-[10px] font-black px-4 py-1 rounded bg-red-500/10 text-red-500 border border-red-500/20";
             } else {
-                status.innerText = "BIAS: NEUTRAL";
-                status.className = "text-[10px] font-black uppercase px-4 py-1 rounded bg-slate-800 text-slate-400 border border-white/5";
+                vibe.innerText = "NEUTRAL"; vibe.className = "text-[10px] font-black px-4 py-1 rounded bg-slate-900 text-slate-500";
             }
         }
 
-        // Initialize Locale
-        window.onload = syncGlobal;
+        // Run on load
+        window.onload = processSystem;
     </script>
 </body>
 </html>
-```
